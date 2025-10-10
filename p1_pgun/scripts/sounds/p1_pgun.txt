@@ -225,7 +225,7 @@
 	"channel"		"CHAN_AUTO"
 	"soundlevel"  "SNDLVL_75dB"
 	"volume"		"0.00"
-	"wave"		"p1_pgun/object_use_no_gun_01.wav"
+	"wave"		"p1_pgun/object_use_failure_01.wav"
 }
 
 "PortalPlayer.UseDenyNoGun"
@@ -233,5 +233,5 @@
 	"channel"	"CHAN_AUTO"
 	"volume"	"0.15"
 	"soundlevel"  "SNDLVL_75dB"
-	"wave"		"p1_pgun/object_use_no_gun_01.wav"
+	"wave"		"p1_pgun/object_use_failure_01.wav"
 }
