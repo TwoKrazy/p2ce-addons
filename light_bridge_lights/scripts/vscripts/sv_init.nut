@@ -213,8 +213,6 @@ function lightRemoveAll() {
 
     for(local light = null; light = Entities.FindByClassname(light, "light_rt");) {
         if(light.GetMaxHealth() == LIGHT_SPECIFIC_HEALTH) { // only remove lights created by this script
-            Dev.msgDeveloper("Removing light: " + light.GetName())
-
             Dev.EntFireByHandleCompressed(light, "Kill")
         }
     }
