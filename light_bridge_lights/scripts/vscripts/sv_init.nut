@@ -27,6 +27,9 @@ const LIGHT_D0 = 300
 const LIGHT_SHADOWSIZE = -1 // DONT CHANGE THIS FROM -1, it just instantly overwhelms the shadow atlas (-1 = no shadows)
 
 const LIGHT_SPACING = 20  // distance between lights in units, less spacing means more lights but a higher performance cost
+const LIGHT_MAXCOUNT = 128  // maximum number of lights per bridge to prevent performance issues
+
+const LIGHT_SPECIFIC_HEALTH = 27852 // used to identify lights created by this script
 
 bridgesCached <- [] // stores bridge handles and their entindexes
 bridgeLightCountPrevious <- {}
@@ -41,22 +44,36 @@ TRACE_BOUNDS_MIN <- Vector(-12, -12, -12)
 TRACE_BOUNDS_MAX <- Vector(12, 12, 12)
 
 function Setup() {
+    if(Entities.FindByName(null, "lightbridgelights_setupdone") != null) {
+        Dev.msgDeveloper("Setup has already been completed, skipping...")
+        return
+    }
+
     Dev.msgDeveloper("Creating cache refresh timer...")
     local loopTimer = CreateEntityByName("logic_timer", {  // cache refresh timer
         RefireTime = CACHE_REFRESH_TIME
     })
     loopTimer.ConnectOutput("OnTimer", "bridgeCacheRefresh")
     bridgeCacheRefresh()  // initial cache
+
+    local loadAuto = CreateEntityByName("logic_auto", {}) // handle loading of saves
+    loadAuto.ConnectOutput("OnLoadGame", "OnLoadGame")
+
+    local hasBeenSetupEntity = CreateEntityByName("info_target", { // dummy entity to check against to prevent multiple setups
+        targetname = "lightbridgelights_setupdone"
+    })
+}
+
+function OnLoadGame() {
+    Dev.msgDeveloper("Load game detected, resetting lights...")
+
+    // entindexs get messed up on load, meaning all lights need to be reset
+    bridgesCacheMarkedForReset = true
+    lightRemoveAll()
 }
 
 function bridgeCacheRefresh() {
     if(bridgesCacheMarkedForReset) {
-        foreach(idx, data in bridgesCached) {
-            local bridgeIndex = data.index
-            lightRemoveAtBridge(bridgeIndex)    // prevent duplicate lights
-
-            bridgesCached.remove(idx)   // dont attempt to remove lights at this bridge again
-        }
         bridgeCacheReset()
         bridgesCacheMarkedForReset = false
     }
@@ -115,6 +132,14 @@ function bridgeIsCached(bridge) {
 
 function bridgeCacheReset() {
     Dev.msgDeveloper("Resetting bridge cache...")
+
+    foreach(idx, data in bridgesCached) {
+        local bridgeIndex = data.index
+        lightRemoveAtBridge(bridgeIndex)    // prevent duplicate lights
+
+        bridgesCached.remove(idx)   // dont attempt to remove lights at this bridge again
+    }
+
     bridgesCached <- []
     bridgeLightCountPrevious <- {}
 }
@@ -135,7 +160,10 @@ function bridgeGetLightCount(bridge) {
 
 function lightSpawnAtBridge(bridge, currentLightCount = 0) {
     local bridgeLength = bridgeCalculateLength(bridge)
+
     local lightCount = bridgeGetLightCount(bridge)
+    if(lightCount > LIGHT_MAXCOUNT) lightCount = LIGHT_MAXCOUNT  // cap light count to prevent performance issues
+
     local bridgeIndex = bridge.entindex()
 
     Dev.msgDeveloper("Spawning " + (lightCount - currentLightCount) + " lights.")
@@ -163,6 +191,8 @@ function lightCreate(pos) {    // returns light handle
     light.Spawn()
     light.SetOrigin(pos)
 
+    light.__KeyValueFromInt("max_health", LIGHT_SPECIFIC_HEALTH) // needed to detect light entities later
+
     return light
 }
 
@@ -176,6 +206,20 @@ function lightRemoveAtBridge(bridgeIndex, numLightsToKeep = 0) {
         local light = Entities.FindByName(null, bridgeIndex + "_light" + i)
         if(light != null) Dev.EntFireByHandleCompressed(light, "Kill")
     }
+}
+
+function lightRemoveAll() {
+    Dev.msgDeveloper("Removing all bridge lights...")
+
+    for(local light = null; light = Entities.FindByClassname(light, "light_rt");) {
+        if(light.GetMaxHealth() == LIGHT_SPECIFIC_HEALTH) { // only remove lights created by this script
+            Dev.msgDeveloper("Removing light: " + light.GetName())
+
+            Dev.EntFireByHandleCompressed(light, "Kill")
+        }
+    }
+
+    bridgeCacheReset()
 }
 
 scriptStart()
