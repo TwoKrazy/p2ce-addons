@@ -30,7 +30,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter1.png"
-						background_movie = "menu_act01.webm"
+						background_movie = "backgrounds/menu_act01.webm"
 						background_music = "UIPanorama.Music.P2.Menu1"
 						loading_screen = "loading_screens/a1.png"
 						transition_screen = "loading_screens/transit_a.png"
@@ -51,7 +51,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter2.png"
-						background_movie = "menu_act02.webm"
+						background_movie = "backgrounds/menu_act02.webm"
 						background_music = "UIPanorama.Music.P2.Menu2"
 						loading_screen = "loading_screens/a2.png"
 						transition_screen = "loading_screens/transit_b.png"
@@ -73,7 +73,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter3.png"
-						background_movie = "menu_act02.webm"
+						background_movie = "backgrounds/menu_act02.webm"
 						background_music = "UIPanorama.Music.P2.Menu2"
 						loading_screen = "loading_screens/a2.png"
 						transition_screen = "loading_screens/transit_b.png"
@@ -91,7 +91,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter4.png"
-						background_movie = "menu_act02.webm"
+						background_movie = "backgrounds/menu_act02.webm"
 						background_music = "UIPanorama.Music.P2.Menu2"
 						loading_screen = "loading_screens/a2.png"
 						transition_screen = "loading_screens/transit_b.png"
@@ -109,7 +109,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter5.png"
-						background_movie = "menu_act02.webm"
+						background_movie = "backgrounds/menu_act02.webm"
 						background_music = "UIPanorama.Music.P2.Menu2"
 						loading_screen = "loading_screens/a2.png"
 						transition_screen = "loading_screens/transit_b.png"
@@ -129,7 +129,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter6.png"
-						background_movie = "menu_act03.webm"
+						background_movie = "backgrounds/menu_act03.webm"
 						background_music = "UIPanorama.Music.P2.Menu3"
 						loading_screen = "loading_screens/a3.png"
 						transition_screen = "loading_screens/transit_c.png"
@@ -146,7 +146,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter7.png"
-						background_movie = "menu_act03.webm"
+						background_movie = "backgrounds/menu_act03.webm"
 						background_music = "UIPanorama.Music.P2.Menu3"
 						loading_screen = "loading_screens/a3.png"
 						transition_screen = "loading_screens/transit_c.png"
@@ -170,7 +170,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter8.png"
-						background_movie = "menu_act04.webm"
+						background_movie = "backgrounds/menu_act04.webm"
 						background_music = "UIPanorama.Music.P2.Menu4"
 						loading_screen = "loading_screens/a4.png"
 						transition_screen = "loading_screens/transit_e.png"
@@ -187,7 +187,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter9.png"
-						background_movie = "menu_act04.webm"
+						background_movie = "backgrounds/menu_act04.webm"
 						background_music = "UIPanorama.Music.P2.Menu4"
 						loading_screen = "loading_screens/a4.png"
 						transition_screen = "loading_screens/transit_e.png"
@@ -201,7 +201,7 @@
 					]
 					meta = {
 						thumbnail = "chapters/chapter10.png"
-						background_movie = "menu_act05.webm"
+						background_movie = "backgrounds/menu_act05.webm"
 						background_music = "UIPanorama.Music.P2.Menu5"
 						loading_screen = "loading_screens/a5.png"
 						transition_screen = "loading_screens/transit_e.png"
