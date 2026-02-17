@@ -57,7 +57,7 @@ def build_addon(addon_dir: str, output_dir_parent: str) -> None:
         vpk = vpkpp.VPK.create(os.path.join(output_dir, "pak01_dir.vpk"))
         for entry in to_pack:
             print(f"Packing \"{entry}\"")
-            vpk.add_entry_from_file(entry, entry)
+            vpk.add_entry_from_file(entry, addon_dir + entry)
         vpk.bake()
 
     if (
